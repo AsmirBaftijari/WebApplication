@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LoginDatenBankModel1StoreContainer" CdmEntityContainer="DBModels2">
+    <EntitySetMapping Name="Eintraeges">
+      <EntityTypeMapping TypeName="LoginDatenBankModel1.Eintraege">
+        <MappingFragment StoreEntitySet="Eintraege">
+          <ScalarProperty Name="Autorisiert_ID" ColumnName="Autorisiert_ID" />
+          <ScalarProperty Name="Eintrag_Id" ColumnName="Eintrag_Id" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="Kommentar" ColumnName="Kommentar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="LoginDatenBankModel1.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<WebApplication.Models.Eintraege>
+
+@{ ViewBag.Title = "Index"; }
+
+<p>
+    @if (Session["isAdmin"] != null && (bool)Session["isAdmin"])
+    {
+     <div>
+         <h1>Administration</h1>
+         <h3>Hi, hier kannst du Einträge verwalten!</h3>
+     </div>
+                <a href="@Url.Action("LogOut", "Home")">Abmelden</a>}
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Vorname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nachname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kommentar)
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        if (item.Autorisiert_ID != null)
+        {   
+            continue;
+        }
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Vorname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Nachname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Datum)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Kommentar)
+    </td>
+    @if (Session["isAdmin"] != null)
+    {
+<td>
+    @if (item.Autorisiert_ID != null)
+    {
+<p>Autorisiert: Ja</p> }
+                    else
+                    {
+<p>Autorisiert: Nein</p>                    }
+</td>}
+    <td>
+        @if (Session["isAdmin"] != null && (bool)Session["isAdmin"])
+        {
+@Html.ActionLink("Edit ", "Edit", new { id = item.Eintrag_Id })
+                    @Html.ActionLink("Löschen", "Delete", new { id = item.Eintrag_Id })}
+    </td>
+</tr>}
+
+</table>

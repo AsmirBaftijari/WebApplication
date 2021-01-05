@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LoginDatenBankModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Eintraege">
+    <Key>
+      <PropertyRef Name="Eintrag_Id" />
+    </Key>
+    <Property Name="Eintrag_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Vorname" Type="varchar" MaxLength="50" />
+    <Property Name="Nachname" Type="varchar" MaxLength="50" />
+    <Property Name="Datum" Type="datetime" />
+    <Property Name="Kommentar" Type="text" />
+    <Property Name="Autorisiert_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK_Eintraege_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Eintraege" Type="Self.Eintraege" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Eintraege">
+        <PropertyRef Name="Autorisiert_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LoginDatenBankModel1StoreContainer">
+    <EntitySet Name="Eintraege" EntityType="Self.Eintraege" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Eintraege_User" Association="Self.FK_Eintraege_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Eintraege" EntitySet="Eintraege" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

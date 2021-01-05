@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LoginDatenBankModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Eintraege">
+          <Key>
+            <PropertyRef Name="Eintrag_Id" />
+          </Key>
+          <Property Name="Eintrag_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Vorname" Type="varchar" MaxLength="50" />
+          <Property Name="Nachname" Type="varchar" MaxLength="50" />
+          <Property Name="Datum" Type="datetime" />
+          <Property Name="Kommentar" Type="text" />
+          <Property Name="Autorisiert_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Eintraege_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Eintraege" Type="Self.Eintraege" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Eintraege">
+              <PropertyRef Name="Autorisiert_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LoginDatenBankModel1StoreContainer">
+          <EntitySet Name="Eintraege" EntityType="Self.Eintraege" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Eintraege_User" Association="Self.FK_Eintraege_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Eintraege" EntitySet="Eintraege" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LoginDatenBankModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Eintraege">
+          <Key>
+            <PropertyRef Name="Eintrag_Id" />
+          </Key>
+          <Property Name="Eintrag_Id" Type="Guid" Nullable="false" />
+          <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Datum" Type="DateTime" Precision="3" />
+          <Property Name="Kommentar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Autorisiert_ID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="LoginDatenBankModel1.FK_Eintraege_User" FromRole="Eintraege" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Eintraeges" Relationship="LoginDatenBankModel1.FK_Eintraege_User" FromRole="User" ToRole="Eintraege" />
+        </EntityType>
+        <EntityContainer Name="DBModels2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Eintraeges" EntityType="Self.Eintraege" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Eintraege_User" Association="LoginDatenBankModel1.FK_Eintraege_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Eintraege" EntitySet="Eintraeges" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Eintraege_User">
+          <End Type="LoginDatenBankModel1.User" Role="User" Multiplicity="0..1" />
+          <End Type="LoginDatenBankModel1.Eintraege" Role="Eintraege" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Eintraege">
+              <PropertyRef Name="Autorisiert_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LoginDatenBankModel1StoreContainer" CdmEntityContainer="DBModels2">
+          <EntitySetMapping Name="Eintraeges">
+            <EntityTypeMapping TypeName="LoginDatenBankModel1.Eintraege">
+              <MappingFragment StoreEntitySet="Eintraege">
+                <ScalarProperty Name="Autorisiert_ID" ColumnName="Autorisiert_ID" />
+                <ScalarProperty Name="Eintrag_Id" ColumnName="Eintrag_Id" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+                <ScalarProperty Name="Kommentar" ColumnName="Kommentar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="LoginDatenBankModel1.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

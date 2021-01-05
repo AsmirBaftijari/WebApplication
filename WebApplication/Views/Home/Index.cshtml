@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebApplication.Models.Eintraege>
+
+@{ ViewBag.Title = "Index"; }
+
+<h2>Index Einträge</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Vorname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nachname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kommentar)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.Autorisiert_ID == null) {
+            continue;
+        }
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Vorname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Nachname)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Datum)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Kommentar)
+    </td>
+</tr>
+}
+
+</table>

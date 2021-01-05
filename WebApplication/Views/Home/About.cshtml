@@ -1,0 +1,69 @@
+﻿@model  WebApplication.Models.User
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administration</h2>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <style>
+        #login-div {
+            position: absolute;
+            left: 20%;
+            top: 20%;
+            border: 1px solid #ccc;
+            padding: 50px 50px;
+        }
+
+        .field-validation-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-div">
+        @using (Html.BeginForm("Authorise", "Home", FormMethod.Post))
+        {
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(model => model.UserName)</td>
+                    <td>@Html.EditorFor(model => model.UserName) </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>@Html.ValidationMessageFor(model => model.UserName) </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(model => model.Password)</td>
+                    <td>@Html.EditorFor(model => model.Password) </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>@Html.ValidationMessageFor(model => model.Password) </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label class="field-validation-error">@Html.DisplayFor(model => model.LoginErrorMsg)</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Login" />
+                        <input type="reset" value="Löschen" />
+                    </td>
+                </tr>
+            </table>
+        }
+        <script src="~/Scripts/jquery-1.4.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    </div>
+</body>
+</html>
+
+

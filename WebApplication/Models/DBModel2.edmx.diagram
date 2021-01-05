@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="be7d2d5de4984515abf3f7c19c1f3c23" Name="Diagram1" ZoomLevel="196">
+        <EntityTypeShape EntityType="LoginDatenBankModel1.Eintraege" Width="1.75" PointX="0.875" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LoginDatenBankModel1.User" Width="1.5" PointX="4" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="LoginDatenBankModel1.FK_Eintraege_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
